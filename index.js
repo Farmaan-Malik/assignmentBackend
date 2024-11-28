@@ -1,11 +1,13 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-
+const dotenv = require('dotenv')
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
+
+dotenv.config()
 io.on('connection', (socket) => {
   console.log('User connected');
   // Listen for incoming messages
@@ -25,10 +27,7 @@ io.on('connection', (socket) => {
     io.emit('endCall')
   })
 });
-const PORT = process.env.PORT || 7080;
+const PORT = process.env.PORT;
 server.listen(PORT, () => {
-    // setTimeout(()=>{
-    //   io.emit("notification",{name:"Dr. Peralta"})
-    //  },3000) 
-  console.log(`Server is running on port ${PORT}`);
+  console.log(PORT)
 });
